@@ -117,6 +117,12 @@ class YamlConfig(collections.MutableMapping):
         self._conf.__delitem__(name)
 
 
+class OpenStackConfig(YamlConfig):
+    _defaults = {
+        'user-data': 'teuthology/openstack/openstack-{os_type}-{os_version}-user-data.txt',
+    }
+
+
 class TeuthologyConfig(YamlConfig):
     """
     This class is intended to unify teuthology's many configuration files and
@@ -147,6 +153,7 @@ class TeuthologyConfig(YamlConfig):
         'koji_task_url': 'https://kojipkgs.fedoraproject.org/work/',
         'baseurl_template': 'http://{host}/{proj}-{pkg_type}-{dist}-{arch}-{flavor}/{uri}',
         'teuthology_path': None,
+        'openstack': OpenStackConfig(),
     }
 
     def __init__(self, yaml_path=None):
