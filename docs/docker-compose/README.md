@@ -74,6 +74,3 @@ When you are ready to run tests:
 ```bash
 ./start.sh
 ```
-
-
-FIXME SUITE
