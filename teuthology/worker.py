@@ -197,7 +197,15 @@ def prep_job(job_config, log_file_path, archive_dir):
         )
         raise SkipJob()
 
-    teuth_bin_path = os.path.join(teuth_path, 'virtualenv', 'bin')
+    if teuth_config.teuthology_path is not None and \
+            teuth_config.teuthology_venv_path is not None:
+        teuth_bin_path = os.path.normpath(os.path.join(
+            teuth_config.teuthology_path,
+            teuth_config.teuthology_venv_path,
+            'bin',
+        ))
+    else:
+        teuth_bin_path = os.path.join(teuth_path, 'virtualenv', 'bin')
     if not os.path.isdir(teuth_bin_path):
         raise RuntimeError("teuthology branch %s at %s not bootstrapped!" %
                            (teuthology_branch, teuth_bin_path))
