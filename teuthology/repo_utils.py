@@ -70,6 +70,17 @@ def ls_remote(url, ref):
     return sha1
 
 
+def current_branch(path: str) -> str:
+    """
+    Return the current branch for a given on-disk repository.
+
+    :returns: the current branch, or an empty string if none is found.
+    """
+    cmd = "git branch --show-current"
+    result = subprocess.check_output(cmd, shell=True, cwd=path).strip().decode()
+    return result
+
+
 def enforce_repo_state(repo_url, dest_path, branch, commit=None, remove_on_error=True):
     """
     Use git to either clone or update a given repo, forcing it to switch to the
