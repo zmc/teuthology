@@ -246,10 +246,17 @@ class Run(object):
         if not teuthology_branch:
             teuthology_branch = config.get('teuthology_branch', 'master')
 
-        teuthology_sha1 = util.git_ls_remote(
-            'teuthology',
-            teuthology_branch
-        )
+        if config.teuthology_path is None:
+            teuthology_sha1 = util.git_ls_remote(
+                'teuthology',
+                teuthology_branch
+            )
+        else:
+            # if t_branch value does not match branch of repo, fail!!!
+            teuthology_sha1 = util.git_ls_remote(
+                f"file://{config.teuthology_path}",
+                teuthology_branch
+            )
         if not teuthology_sha1:
             exc = BranchNotFoundError(teuthology_branch, build_git_url('teuthology'))
             util.schedule_fail(message=str(exc), name=self.name)
