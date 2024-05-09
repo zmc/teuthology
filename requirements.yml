@@ -1,11 +1,9 @@
 ---
 collections:
   - amazon.aws
-  - name: ansible.netcommon
-    version: "<6.0.0"  # 6.0 requires ansible-core >= 2.14
+  - ansible.netcommon
   - ansible.posix
-  - name: ansible.utils
-    version: "<3.0.0"  # 3.0 requires ansible-core >= 2.14
+  - ansible.utils
   - community.docker
   - community.general
   - community.postgresql
